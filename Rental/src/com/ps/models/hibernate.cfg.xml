@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+                                         "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+ <session-factory name="hibernateSessionFactory">
+  <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+  <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/rentaldb</property>
+  <property name="hibernate.connection.username">root</property>
+  <property name="hibernate.connection.password"></property> 
+  <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+  <property name="hibernate.hbm2ddl.auto">update</property>
+  <property name="hibernate.show_sql">true</property>
+  <property name="hibernate.format_sql">true</property>
+<!--   <property name="hibernate.hbm2ddl.auto">create</property> -->
+  <mapping class="com.ps.models.City"/>
+  <mapping class="com.ps.models.Client"/>
+  <mapping class="com.ps.models.Store"/>
+  <mapping class="com.ps.models.Vehicle"/>
+  <mapping class="com.ps.models.Rental"/>
+ </session-factory>
+</hibernate-configuration>
