@@ -5,8 +5,8 @@ The aim of this project is the
 * Frontend: Java (Swing)
 * Database: MySQL
 
-# HomeScreen screenshot
-![](Images/LabHomeScreen.png)
+# Login screenshot
+![](Images/RentalLogin.png)
 
 # ControlPanel screenshot
-![](Images/LabControlPanel.png)
+![](Images/AdminControlPanel.png)
