@@ -1,4 +1,4 @@
-# Research-Lab-Manegement-System
+# Rental-Company-Management-System
 The aim of this project is the  
 
 * Backend: Java
