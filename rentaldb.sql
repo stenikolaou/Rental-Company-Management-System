@@ -1,0 +1,232 @@
+-- phpMyAdmin SQL Dump
+-- version 4.9.2
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Feb 17, 2020 at 01:18 PM
+-- Server version: 10.4.10-MariaDB
+-- PHP Version: 7.3.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `rentaldb`
+--
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateRentalSP` (IN `RENTAL_ID` VARCHAR(50), IN `VEHICLE_LICENCE_NO` VARCHAR(50), IN `CLIENT_ID` VARCHAR(50), IN `RENTAL_PICKUP_LOCATION` VARCHAR(50), IN `RENTAL_PICKUP_DATE` DATE, IN `RENTAL_RETURN_LOCATION` VARCHAR(50), IN `RENTAL_RETURN_DATE` DATE, IN `RENTAL_TOTAL_COST` INT)  NO SQL
+INSERT INTO rental (RENTAL_ID, VEHICLE_LICENCE_NO, CLIENT_ID, RENTAL_PICKUP_LOCATION, RENTAL_PICKUP_DATE, RENTAL_RETURN_LOCATION, RENTAL_RETURN_DATE, RENTAL_TOTAL_COST)
+VALUES (RENTAL_ID, VEHICLE_LICENCE_NO, CLIENT_ID, RENTAL_PICKUP_LOCATION, RENTAL_PICKUP_DATE, RENTAL_RETURN_LOCATION, RENTAL_RETURN_DATE, RENTAL_TOTAL_COST)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `CreateVehicleSP` (IN `VEHICLE_LICENCE_NO` VARCHAR(10), IN `STORE_ID` VARCHAR(30), IN `VEHICLE_MODEL` VARCHAR(30), IN `VEHICLE_FUEL` VARCHAR(20), IN `VEHICLE_CAPACITY` VARCHAR(20), IN `VEHICLE_RENTAL_COST` INT(11), IN `VEHICLE_TYPE` VARCHAR(50), IN `VEHICLE_SEAT_HEIGHT` INT(11), IN `VEHICLE_LUGGAGE_SUPPORT` VARCHAR(50), IN `VEHICLE_SEAT_NO` INT(11), IN `VEHICLE_DOOR_NUMBER` INT(11), IN `GeneralType` VARCHAR(30))  NO SQL
+INSERT INTO vehicle (VEHICLE_LICENCE_NO, STORE_ID, VEHICLE_MODEL, VEHICLE_FUEL, VEHICLE_CAPACITY, VEHICLE_RENTAL_COST, VEHICLE_TYPE, VEHICLE_SEAT_HEIGHT, VEHICLE_LUGGAGE_SUPPORT, VEHICLE_SEAT_NO, VEHICLE_DOOR_NUMBER, GeneralType)
+VALUES (VEHICLE_LICENCE_NO, STORE_ID, VEHICLE_MODEL, VEHICLE_FUEL, VEHICLE_CAPACITY, VEHICLE_RENTAL_COST, VEHICLE_TYPE, VEHICLE_SEAT_HEIGHT, VEHICLE_LUGGAGE_SUPPORT, VEHICLE_SEAT_NO, VEHICLE_DOOR_NUMBER, GeneralType)$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `UpdateVehicleSP` (INOUT `VEHICLE_LICENCE_NO` VARCHAR(30), INOUT `STORE_ID` VARCHAR(30), INOUT `VEHICLE_MODEL` VARCHAR(30), INOUT `VEHICLE_FUEL` VARCHAR(30), INOUT `VEHICLE_CAPACITY` VARCHAR(30), INOUT `VEHICLE_RENTAL_COST` INT, INOUT `VEHICLE_TYPE` VARCHAR(30), INOUT `VEHICLE_SEAT_HEIGHT` INT, INOUT `VEHICLE_LUGGAGE_SUPPORT` VARCHAR(30), IN `VEHICLE_SEAT_NO` INT, IN `VEHICLE_DOOR_NUMBER` INT, IN `GeneralType` VARCHAR(30))  NO SQL
+UPDATE vehicle SET
+VEHICLE_LICENCE_NO=VEHICLE_LICENCE_NO, STORE_ID=STORE_ID, VEHICLE_MODEL=VEHICLE_MODEL, VEHICLE_FUEL=VEHICLE_FUEL, VEHICLE_CAPACITY=VEHICLE_CAPACITY, VEHICLE_RENTAL_COST=VEHICLE_RENTAL_COST, VEHICLE_TYPE=VEHICLE_TYPE, VEHICLE_SEAT_HEIGHT=VEHICLE_SEAT_HEIGHT, VEHICLE_LUGGAGE_SUPPORT=VEHICLE_LUGGAGE_SUPPORT, VEHICLE_SEAT_NO=VEHICLE_SEAT_NO, VEHICLE_DOOR_NUMBER=VEHICLE_DOOR_NUMBER, GeneralType=GeneralType
+WHERE vehicle.VEHICLE_LICENCE_NO=VEHICLE_LICENCE_NO$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `city`
+--
+
+CREATE TABLE `city` (
+  `CITY_ID` varchar(30) NOT NULL,
+  `CITY_NAME` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `city`
+--
+
+INSERT INTO `city` (`CITY_ID`, `CITY_NAME`) VALUES
+('ATH', 'Athens'),
+('SKG', 'Thessaloniki');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `client`
+--
+
+CREATE TABLE `client` (
+  `CLIENT_ID` varchar(50) NOT NULL,
+  `CLIENT_NAME` varchar(50) NOT NULL,
+  `CLIENT_SURNAME` varchar(50) NOT NULL,
+  `CLIENT_DRIVING_LICENSE` varchar(20) NOT NULL,
+  `CLIENT_ADDRESS` varchar(50) NOT NULL,
+  `CLIENT_EMAIL` varchar(50) NOT NULL,
+  `CLIENT_TELEPHONE_NO` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `client`
+--
+
+INSERT INTO `client` (`CLIENT_ID`, `CLIENT_NAME`, `CLIENT_SURNAME`, `CLIENT_DRIVING_LICENSE`, `CLIENT_ADDRESS`, `CLIENT_EMAIL`, `CLIENT_TELEPHONE_NO`) VALUES
+('aboagwef', 'Felix', 'Aboagwe', '785412698', 'Nigeria', 'aboagwef@gmail.com', '002344578921463'),
+('howardj', 'John', 'Howard', '578496124', 'US', 'howardj@yahoo.com', '0014578964123'),
+('nikolaous', 'Stefanos', 'Nikolaou', '123456789', 'Athens', 'nikolaous@hotmail.com', '6974158268'),
+('papadopoulosg', 'George', 'Papadopoulos', '758469321', 'Thessaloniki', 'papadopoulosg@hotmail.com', '6984759621'),
+('zhaox', 'Xin', 'Zhao', '748512394', 'China', 'zhaox@baidu.cn', '00861554789223');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `rental`
+--
+
+CREATE TABLE `rental` (
+  `RENTAL_ID` varchar(30) NOT NULL,
+  `VEHICLE_LICENCE_NO` varchar(10) NOT NULL,
+  `CLIENT_ID` varchar(50) NOT NULL,
+  `RENTAL_PICKUP_LOCATION` varchar(50) NOT NULL,
+  `RENTAL_PICKUP_DATE` date NOT NULL,
+  `RENTAL_RETURN_LOCATION` varchar(50) NOT NULL,
+  `RENTAL_RETURN_DATE` date NOT NULL,
+  `RENTAL_TOTAL_COST` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `rental`
+--
+
+INSERT INTO `rental` (`RENTAL_ID`, `VEHICLE_LICENCE_NO`, `CLIENT_ID`, `RENTAL_PICKUP_LOCATION`, `RENTAL_PICKUP_DATE`, `RENTAL_RETURN_LOCATION`, `RENTAL_RETURN_DATE`, `RENTAL_TOTAL_COST`) VALUES
+('17022001', 'IBO9080', 'aboagwef', 'Athens', '2020-02-17', 'Athens', '2020-02-19', 0),
+('asd', 'IBO9080', 'nikolaous', 'Athens_Airport', '2020-05-15', 'Athens_Airport', '2020-05-18', 50),
+('nikol', 'EMH1452', 'nikolaous', 'u', '2020-02-11', 'Athens', '2020-02-13', 50);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `store`
+--
+
+CREATE TABLE `store` (
+  `STORE_ID` varchar(30) NOT NULL,
+  `CITY_ID` varchar(30) NOT NULL,
+  `STORE_NAME` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `store`
+--
+
+INSERT INTO `store` (`STORE_ID`, `CITY_ID`, `STORE_NAME`) VALUES
+('ATH01', 'ATH', 'Athens_Airport'),
+('SKG01', 'SKG', 'Thessaloniki_Airport');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `vehicle`
+--
+
+CREATE TABLE `vehicle` (
+  `VEHICLE_LICENCE_NO` varchar(10) NOT NULL,
+  `STORE_ID` varchar(30) NOT NULL,
+  `VEHICLE_MODEL` varchar(30) NOT NULL,
+  `VEHICLE_FUEL` varchar(20) NOT NULL,
+  `VEHICLE_CAPACITY` varchar(20) NOT NULL,
+  `VEHICLE_RENTAL_COST` int(11) NOT NULL,
+  `VEHICLE_TYPE` varchar(50) NOT NULL,
+  `VEHICLE_SEAT_HEIGHT` int(11) DEFAULT NULL,
+  `VEHICLE_LUGGAGE_SUPPORT` varchar(50) DEFAULT NULL,
+  `VEHICLE_SEAT_NO` int(11) DEFAULT NULL,
+  `VEHICLE_DOOR_NUMBER` int(11) DEFAULT NULL,
+  `GeneralType` varchar(30) NOT NULL,
+  `Takaros` varchar(31) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `vehicle`
+--
+
+INSERT INTO `vehicle` (`VEHICLE_LICENCE_NO`, `STORE_ID`, `VEHICLE_MODEL`, `VEHICLE_FUEL`, `VEHICLE_CAPACITY`, `VEHICLE_RENTAL_COST`, `VEHICLE_TYPE`, `VEHICLE_SEAT_HEIGHT`, `VEHICLE_LUGGAGE_SUPPORT`, `VEHICLE_SEAT_NO`, `VEHICLE_DOOR_NUMBER`, `GeneralType`, `Takaros`) VALUES
+('EMH1452', 'ATH01', 'Hyundai i10', 'Gas', '1.0', 25, 'Small car', 0, '0', 4, 3, 'Car', ''),
+('IBO9080', 'ATH01', 'Ford Fiesta', 'Diesel', '1.5', 30, 'Small car', 0, '0', 5, 3, 'Car', ''),
+('IKA5545', 'ATH01', 'Audi Q3', 'Gas', '2.0', 70, 'SUV', 0, '0', 5, 5, 'Car', ''),
+('XNA', 'SKG01', 'Toyota yaris', 'Gas', '1.2', 30, 'Small Car', 0, '0', 4, 3, 'Car', '');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `city`
+--
+ALTER TABLE `city`
+  ADD PRIMARY KEY (`CITY_ID`);
+
+--
+-- Indexes for table `client`
+--
+ALTER TABLE `client`
+  ADD PRIMARY KEY (`CLIENT_ID`);
+
+--
+-- Indexes for table `rental`
+--
+ALTER TABLE `rental`
+  ADD PRIMARY KEY (`RENTAL_ID`),
+  ADD KEY `FK_APPEARS` (`VEHICLE_LICENCE_NO`),
+  ADD KEY `FK_PERFORMS` (`CLIENT_ID`);
+
+--
+-- Indexes for table `store`
+--
+ALTER TABLE `store`
+  ADD PRIMARY KEY (`STORE_ID`),
+  ADD KEY `FK_HAS` (`CITY_ID`);
+
+--
+-- Indexes for table `vehicle`
+--
+ALTER TABLE `vehicle`
+  ADD PRIMARY KEY (`VEHICLE_LICENCE_NO`),
+  ADD KEY `FK_OWNS` (`STORE_ID`);
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `rental`
+--
+ALTER TABLE `rental`
+  ADD CONSTRAINT `FK_APPEARS` FOREIGN KEY (`VEHICLE_LICENCE_NO`) REFERENCES `vehicle` (`VEHICLE_LICENCE_NO`),
+  ADD CONSTRAINT `FK_PERFORMS` FOREIGN KEY (`CLIENT_ID`) REFERENCES `client` (`CLIENT_ID`);
+
+--
+-- Constraints for table `store`
+--
+ALTER TABLE `store`
+  ADD CONSTRAINT `FK_HAS` FOREIGN KEY (`CITY_ID`) REFERENCES `city` (`CITY_ID`);
+
+--
+-- Constraints for table `vehicle`
+--
+ALTER TABLE `vehicle`
+  ADD CONSTRAINT `FK_OWNS` FOREIGN KEY (`STORE_ID`) REFERENCES `store` (`STORE_ID`);
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
