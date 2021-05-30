@@ -1,4 +1,4 @@
-# Rental-Company-Management-System
+# Rental Company Management System
 This project is about an application for a rent-a-vehicle company. The application
 was developed in Java programming language, using REST Web Services (Jersey) and Hibernate.
 
